@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (username.equals("admin") && password.equals("1234")) {
                     Toast.makeText(LoginActivity.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, HomeAdmin.class);
+                    Intent intent = new Intent(LoginActivity.this, MainNavigation.class);
                     startActivity(intent);
                     finish();
                 } else {

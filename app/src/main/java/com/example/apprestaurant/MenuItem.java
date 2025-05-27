@@ -1,24 +1,21 @@
 package com.example.apprestaurant;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class MenuItem {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
-    private String namaMenu;
-    private String hargaMenu;
+    public String name;
+    public int price;
 
-    public MenuItem(String namaMenu, int hargaMenu) {
-        this.namaMenu = namaMenu;
-        this.hargaMenu = String.valueOf(hargaMenu);
+    public MenuItem(String name, int price) {
+        this.name = name;
+        this.price = price;
     }
 
-    public String getNamaMenu() {
-        return namaMenu;
-    }
-
-    public String getHargaMenu() {
-        return hargaMenu;
-    }
-
-    public int getPrice() {
-        return Integer.parseInt(hargaMenu);
-    }
+    public String getName() { return name; }
+    public int getPrice() { return price; }
 }

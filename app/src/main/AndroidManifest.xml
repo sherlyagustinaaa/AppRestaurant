@@ -12,30 +12,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.APPRESTAURANT"
         tools:targetApi="31">
-
-        <!-- HomeAdmin dijadikan activity utama -->
+        <activity
+            android:name=".MainNavigation"
+            android:exported="false"
+            android:label="@string/title_activity_main_navigation" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.APPRESTAURANT.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".DaftarMenu"
             android:exported="false" />
-
         <activity
             android:name=".HomeAdmin"
             android:exported="false" />
-
-
     </application>
 
 </manifest>

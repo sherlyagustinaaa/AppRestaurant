@@ -26,8 +26,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     @Override
     public void onBindViewHolder(MenuViewHolder holder, int position) {
         MenuItem menuItem = menuItemList.get(position);
-        holder.tvNamaMenu.setText(menuItem.getNamaMenu());
-        holder.tvHargaMenu.setText(menuItem.getHargaMenu());
+        holder.tvNamaMenu.setText(menuItem.getName());
+        holder.tvHargaMenu.setText(String.format("Rp %,d", menuItem.getPrice()));
     }
 
     @Override

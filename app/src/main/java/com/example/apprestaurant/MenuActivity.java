@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class MenuActivity extends AppCompatActivity {
 
     RecyclerView rvMenu;
     Button btnCheckout;
-    List<MenuItem> menuList = new ArrayList<>();
     List<MenuItem> cart = new ArrayList<>();
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,21 @@ public class MenuActivity extends AppCompatActivity {
         rvMenu = findViewById(R.id.rv_menu);
         btnCheckout = findViewById(R.id.btn_checkout);
 
-        // Contoh menu
-        menuList.add(new MenuItem("Mie Pedas Lv.1", 10000));
-        menuList.add(new MenuItem("Mie Pedas Lv.2", 12000));
-        menuList.add(new MenuItem("Es Teh", 5000));
+        // Inisialisasi database
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "menu-db").allowMainThreadQueries().build();
+
+        // Jika database kosong, masukkan data awal
+        if (db.menuItemDao().getAll().isEmpty()) {
+            db.menuItemDao().insertAll(
+                    new MenuItem("Mie Pedas Lv.1", 10000),
+                    new MenuItem("Mie Pedas Lv.2", 12000),
+                    new MenuItem("Es Teh", 5000)
+            );
+        }
+
+        // Ambil data dari database
+        List<MenuItem> menuList = db.menuItemDao().getAll();
 
         MenuAdapter adapter = new MenuAdapter(menuList);
         rvMenu.setLayoutManager(new LinearLayoutManager(this));
@@ -40,7 +52,7 @@ public class MenuActivity extends AppCompatActivity {
             for (MenuItem item : cart) {
                 total += item.getPrice();
             }
-            Toast.makeText(this, "Total: Rp " + total, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.format("Total: Rp %,d", total), Toast.LENGTH_LONG).show();
         });
     }
 }
